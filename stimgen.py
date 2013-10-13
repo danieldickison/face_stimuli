@@ -53,10 +53,24 @@ def stimgen(dir='.'):
 
     stim_master = lf_stim['hs'] + lf_stim['ls'] + hf_stim['hs'] + hf_stim['ls']
     master_file = open(dir + '/master.csv', 'w')
-    print('fan', 'status', 'occupation', 'eyes', 'face', 'test', 'test_eyes', sep=',', file=master_file)
+    print_stim(None, master_file)
     for stim in stim_master:
-        print(stim.fan, stim.status, stim.occupation, stim.eyes, stim.face, stim.test, stim.test_eyes, sep=',', file=master_file)
+        print_stim(stim, master_file)
     master_file.close()
+
+    study = copy(stim_master)
+    shuffle(study)
+    study_file = open(dir + '/master-study.csv', 'w')
+    study_img_file = open(dir + '/study-img.txt', 'w')
+    study_occupation_file = open(dir + '/study-occupation.txt', 'w')
+    print_stim(None, study_file)
+    for stim in study:
+        print_stim(stim, study_file)
+        print(img_path(stim), file=study_img_file)
+        print(stim.occupation, file=study_occupation_file)
+    study_file.close()
+    study_img_file.close()
+    study_occupation_file.close()
 
 def rotate(list, n=1):
     return list[n:] + list[0:n]
@@ -68,7 +82,10 @@ def flatten(list):
     return reduce(lambda x,y: x+y, list, [])
 
 def print_stim(stim, file):
-    print(stim.fan, stim.status, stim.occupation, stim.eyes, stim.face, sep=',', file=file)
+    if stim:
+        print(stim.fan, stim.status, stim.occupation, stim.eyes, stim.face, stim.test, stim.test_eyes, sep=',', file=file)
+    else:
+        print('fan', 'status', 'occupation', 'eyes', 'face', 'test', 'test_eyes', sep=',', file=file)
 
 def img_path(stim):
     return '%s/%s+%s+EyeMask2.jpg' % (IMG_PATH, stim.eyes, stim.face)
