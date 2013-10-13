@@ -1,0 +1,225 @@
+match,stim_id_left,stim_id_right,occupation_left,occupation_right
+False,95,96,nanny,nanny
+True,59,59,CEO,CEO
+True,73,73,nanny,nanny
+True,54,54,professor,professor
+True,20,20,doctor,doctor
+False,28,29,professor,professor
+True,64,64,maid,maid
+True,72,72,nanny,nanny
+False,94,95,nanny,nanny
+False,98,99,nanny,nanny
+True,28,28,professor,professor
+False,43,44,doctor,doctor
+True,95,95,nanny,nanny
+True,98,98,nanny,nanny
+True,56,56,professor,professor
+False,11,10,nanny,nanny
+True,60,60,CEO,CEO
+False,108,109,secretary,secretary
+True,57,57,professor,professor
+False,25,26,lawyer,lawyer
+False,75,70,nanny,nanny
+True,8,8,maid,maid
+True,96,96,nanny,nanny
+True,76,76,bus driver,bus driver
+False,6,7,CEO,CEO
+True,71,71,nanny,nanny
+True,27,27,lawyer,lawyer
+False,3,2,lawyer,lawyer
+False,91,92,maid,maid
+False,20,21,doctor,doctor
+True,14,14,secretary,secretary
+False,80,81,bus driver,bus driver
+False,60,61,CEO,CEO
+True,103,103,bus driver,bus driver
+False,96,97,nanny,nanny
+True,22,22,lawyer,lawyer
+False,105,100,bus driver,bus driver
+False,56,57,professor,professor
+False,18,19,doctor,doctor
+False,26,27,lawyer,lawyer
+False,32,33,professor,professor
+False,55,56,professor,professor
+True,21,21,doctor,doctor
+True,42,42,doctor,doctor
+False,87,82,secretary,secretary
+False,90,91,maid,maid
+False,69,64,maid,maid
+False,65,66,maid,maid
+False,83,84,secretary,secretary
+True,109,109,secretary,secretary
+False,110,111,secretary,secretary
+False,71,72,nanny,nanny
+True,49,49,lawyer,lawyer
+True,78,78,bus driver,bus driver
+True,38,38,CEO,CEO
+True,37,37,CEO,CEO
+False,19,20,doctor,doctor
+True,106,106,secretary,secretary
+True,40,40,doctor,doctor
+True,63,63,CEO,CEO
+True,46,46,lawyer,lawyer
+True,107,107,secretary,secretary
+True,10,10,nanny,nanny
+False,107,108,secretary,secretary
+True,2,2,lawyer,lawyer
+True,33,33,professor,professor
+True,91,91,maid,maid
+True,80,80,bus driver,bus driver
+True,104,104,bus driver,bus driver
+True,9,9,maid,maid
+False,2,3,lawyer,lawyer
+False,24,25,lawyer,lawyer
+False,29,30,professor,professor
+True,30,30,professor,professor
+False,88,89,maid,maid
+True,58,58,CEO,CEO
+True,83,83,secretary,secretary
+False,104,105,bus driver,bus driver
+True,25,25,lawyer,lawyer
+True,61,61,CEO,CEO
+False,37,38,CEO,CEO
+False,68,69,maid,maid
+True,43,43,doctor,doctor
+True,74,74,nanny,nanny
+True,108,108,secretary,secretary
+False,45,40,doctor,doctor
+True,101,101,bus driver,bus driver
+True,77,77,bus driver,bus driver
+True,18,18,doctor,doctor
+True,16,16,doctor,doctor
+True,47,47,lawyer,lawyer
+True,70,70,nanny,nanny
+False,76,77,bus driver,bus driver
+False,101,102,bus driver,bus driver
+False,35,36,CEO,CEO
+False,72,73,nanny,nanny
+True,111,111,secretary,secretary
+True,13,13,bus driver,bus driver
+True,79,79,bus driver,bus driver
+True,100,100,bus driver,bus driver
+False,73,74,nanny,nanny
+False,14,15,secretary,secretary
+True,87,87,secretary,secretary
+False,61,62,CEO,CEO
+True,51,51,lawyer,lawyer
+True,99,99,nanny,nanny
+True,44,44,doctor,doctor
+True,89,89,maid,maid
+False,31,32,professor,professor
+False,77,78,bus driver,bus driver
+False,12,13,bus driver,bus driver
+False,15,14,secretary,secretary
+True,23,23,lawyer,lawyer
+True,92,92,maid,maid
+False,27,22,lawyer,lawyer
+False,81,76,bus driver,bus driver
+True,81,81,bus driver,bus driver
+False,10,11,nanny,nanny
+True,90,90,maid,maid
+False,9,8,maid,maid
+True,39,39,CEO,CEO
+True,26,26,lawyer,lawyer
+False,52,53,professor,professor
+True,36,36,CEO,CEO
+False,102,103,bus driver,bus driver
+True,110,110,secretary,secretary
+False,54,55,professor,professor
+True,53,53,professor,professor
+False,74,75,nanny,nanny
+True,45,45,doctor,doctor
+True,69,69,maid,maid
+False,85,86,secretary,secretary
+False,44,45,doctor,doctor
+True,55,55,professor,professor
+True,5,5,professor,professor
+True,105,105,bus driver,bus driver
+False,97,98,nanny,nanny
+False,23,24,lawyer,lawyer
+False,64,65,maid,maid
+True,17,17,doctor,doctor
+False,16,17,doctor,doctor
+True,52,52,professor,professor
+False,59,60,CEO,CEO
+True,67,67,maid,maid
+False,4,5,professor,professor
+True,34,34,CEO,CEO
+False,57,52,professor,professor
+False,89,90,maid,maid
+True,6,6,CEO,CEO
+False,99,94,nanny,nanny
+True,62,62,CEO,CEO
+True,29,29,professor,professor
+False,106,107,secretary,secretary
+False,79,80,bus driver,bus driver
+True,3,3,lawyer,lawyer
+True,97,97,nanny,nanny
+False,7,6,CEO,CEO
+False,13,12,bus driver,bus driver
+True,93,93,maid,maid
+True,32,32,professor,professor
+False,5,4,professor,professor
+True,4,4,professor,professor
+False,48,49,lawyer,lawyer
+True,65,65,maid,maid
+True,12,12,bus driver,bus driver
+False,109,110,secretary,secretary
+False,46,47,lawyer,lawyer
+False,82,83,secretary,secretary
+True,41,41,doctor,doctor
+False,84,85,secretary,secretary
+False,38,39,CEO,CEO
+False,47,48,lawyer,lawyer
+True,66,66,maid,maid
+True,7,7,CEO,CEO
+False,40,41,doctor,doctor
+False,17,18,doctor,doctor
+False,42,43,doctor,doctor
+False,58,59,CEO,CEO
+False,39,34,CEO,CEO
+True,24,24,lawyer,lawyer
+False,93,88,maid,maid
+False,34,35,CEO,CEO
+False,63,58,CEO,CEO
+True,88,88,maid,maid
+True,102,102,bus driver,bus driver
+True,0,0,doctor,doctor
+False,62,63,CEO,CEO
+False,51,46,lawyer,lawyer
+False,49,50,lawyer,lawyer
+True,85,85,secretary,secretary
+False,66,67,maid,maid
+True,1,1,doctor,doctor
+False,8,9,maid,maid
+False,53,54,professor,professor
+False,100,101,bus driver,bus driver
+False,1,0,doctor,doctor
+False,78,79,bus driver,bus driver
+False,92,93,maid,maid
+False,67,68,maid,maid
+False,22,23,lawyer,lawyer
+False,50,51,lawyer,lawyer
+True,19,19,doctor,doctor
+False,41,42,doctor,doctor
+True,94,94,nanny,nanny
+True,35,35,CEO,CEO
+False,21,16,doctor,doctor
+False,30,31,professor,professor
+True,11,11,nanny,nanny
+False,36,37,CEO,CEO
+True,86,86,secretary,secretary
+False,111,106,secretary,secretary
+False,70,71,nanny,nanny
+True,15,15,secretary,secretary
+True,84,84,secretary,secretary
+True,50,50,lawyer,lawyer
+False,33,28,professor,professor
+True,75,75,nanny,nanny
+False,86,87,secretary,secretary
+True,31,31,professor,professor
+True,48,48,lawyer,lawyer
+True,82,82,secretary,secretary
+False,0,1,doctor,doctor
+False,103,104,bus driver,bus driver
+True,68,68,maid,maid

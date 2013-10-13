@@ -1,112 +1,112 @@
-CEO
-secretary
-lawyer
-nanny
-professor
-nanny
-maid
-nanny
-nanny
-professor
-bus driver
-nanny
-bus driver
 lawyer
 secretary
-CEO
-nanny
-secretary
-lawyer
-bus driver
-lawyer
 CEO
 professor
-maid
-doctor
-doctor
-CEO
-bus driver
-maid
-CEO
-lawyer
-bus driver
-doctor
-doctor
 secretary
-bus driver
-bus driver
-doctor
-lawyer
 professor
-secretary
+bus driver
+bus driver
 nanny
 lawyer
-maid
-maid
-maid
+CEO
+bus driver
+nanny
+secretary
 bus driver
 secretary
+doctor
+maid
+maid
+professor
+doctor
+maid
+bus driver
+nanny
+nanny
+CEO
+secretary
+lawyer
+maid
 CEO
 bus driver
 lawyer
+doctor
+professor
+CEO
 nanny
 secretary
-secretary
+CEO
+nanny
+professor
+bus driver
+bus driver
+nanny
 nanny
 bus driver
 professor
 maid
+professor
 CEO
 nanny
+CEO
 lawyer
 doctor
-professor
-professor
 doctor
-bus driver
-nanny
-CEO
-bus driver
+maid
 doctor
 CEO
-doctor
-professor
-maid
-maid
-professor
-maid
 professor
 lawyer
-secretary
-doctor
-professor
-nanny
-lawyer
-secretary
-lawyer
-secretary
-CEO
-secretary
-professor
-maid
-professor
-professor
-CEO
-maid
-secretary
-doctor
-nanny
-doctor
-nanny
-doctor
-maid
 bus driver
 CEO
+bus driver
+bus driver
+secretary
+professor
+lawyer
+CEO
+CEO
+lawyer
+nanny
+professor
+secretary
+lawyer
+maid
+maid
+doctor
+professor
+doctor
+professor
+CEO
+lawyer
+bus driver
+professor
+secretary
+nanny
+secretary
+doctor
+nanny
+professor
+CEO
+doctor
+doctor
+lawyer
+maid
+doctor
+maid
+secretary
 doctor
 secretary
-bus driver
-CEO
-CEO
+secretary
+nanny
+doctor
+nanny
 maid
 lawyer
+maid
+bus driver
 lawyer
+lawyer
+maid
+secretary
+maid
