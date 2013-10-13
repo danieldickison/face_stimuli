@@ -13,7 +13,7 @@ occupations = {
     'ls': ['maid', 'nanny', 'bus driver', 'secretary']
 }
 
-Stim = namedtuple('Stim', ['fan', 'status', 'occupation', 'eyes', 'face', 'test', 'test_eyes'])
+Stim = namedtuple('Stim', ['fan', 'status', 'occupation', 'eyes', 'face', 'test', 'test_eyes', 'id'])
 
 def stimgen(dir='.'):
     master = copy(files)
@@ -31,16 +31,19 @@ def stimgen(dir='.'):
         'ls': master[64:112]
     }
 
-    lf_stim = {}
-    hf_stim = {}
+    stim_master = []
+    matching = []
 
     for status in ['hs', 'ls']:
         eyes = lf_master[status]
         faces = rotate(lf_master[status], 2)
         test = ['old', 'new'] * 4
         test_eyes = repeat(rotate(lf_master[status][0::2], 1), 2)
-        zipped = zip(repeat(occupations[status], 2), eyes, faces, test, test_eyes)
-        lf_stim[status] = [Stim('lf', status, *args) for args in zipped]
+        zipped = zip(repeat(occupations[status], 2), eyes, faces, test, test_eyes, xrange(len(stim_master), len(stim_master)+8))
+        stim = [Stim('lf', status, *args) for args in zipped]
+        stim_master += stim
+        matching += zip(stim, stim)
+        matching += zip(stim, flatten([rotate(x) for x in group(stim, 2)]))
 
     for status in ['hs', 'ls']:
         eye_donors = hf_master[status][0:8]
@@ -48,10 +51,12 @@ def stimgen(dir='.'):
         faces = rotate(hf_master[status], 1)
         test = repeat(['old', 'new'], 3) * 8
         test_eyes = repeat(flatten([[x,y] for x,y in zip(eye_donors, rotate(eye_donors, 4))]), 3)
-        zipped = zip(repeat(occupations[status], 6) * 2, eyes, faces, test, test_eyes)
-        hf_stim[status] = [Stim('hf', status, *args) for args in zipped]
+        zipped = zip(repeat(occupations[status], 6) * 2, eyes, faces, test, test_eyes, xrange(len(stim_master), len(stim_master)+48))
+        stim = [Stim('hf', status, *args) for args in zipped]
+        stim_master += stim
+        matching += zip(stim, stim)
+        matching += zip(stim, flatten([rotate(x) for x in group(stim, 6)]))
 
-    stim_master = lf_stim['hs'] + lf_stim['ls'] + hf_stim['hs'] + hf_stim['ls']
     master_file = open(dir + '/master.csv', 'w')
     print_stim(None, master_file)
     for stim in stim_master:
@@ -72,6 +77,36 @@ def stimgen(dir='.'):
     study_img_file.close()
     study_occupation_file.close()
 
+    shuffle(matching)
+    matching_file = open(dir + '/master-matching.csv', 'w')
+    left_img_file = open(dir + '/matching-img-left.txt', 'w')
+    right_img_file = open(dir + '/matching-img-right.txt', 'w')
+    match_occupation_file = open(dir + '/matching-occupation.txt', 'w')
+    print('match', 'stim_id_left', 'stim_id_right', 'occupation_left', 'occupation_right', sep=',', file=matching_file)
+    for pair in matching:
+        print(pair[0] == pair[1], pair[0].id, pair[1].id, pair[0].occupation, pair[1].occupation, sep=',', file=matching_file)
+        print(img_path(pair[0]), file=left_img_file)
+        print(img_path(pair[1]), file=right_img_file)
+        print(pair[0].occupation, file=match_occupation_file)
+    matching_file.close()
+    left_img_file.close()
+    right_img_file.close()
+    match_occupation_file.close()
+
+    test = copy(stim_master)
+    shuffle(test)
+    test_file = open(dir + '/master-test.csv', 'w')
+    test_img_file = open(dir + '/test-img.txt', 'w')
+    test_occupation_file = open(dir + '/test-occupation.txt', 'w')
+    print_stim(None, test_file)
+    for stim in test:
+        print_stim(stim, test_file)
+        print(img_path(stim, test=True), file=test_img_file)
+        print(stim.occupation, file=test_occupation_file)
+    test_file.close()
+    test_img_file.close()
+    test_occupation_file.close()
+
 def rotate(list, n=1):
     return list[n:] + list[0:n]
 
@@ -81,11 +116,15 @@ def repeat(list, n=2):
 def flatten(list):
     return reduce(lambda x,y: x+y, list, [])
 
+def group(list, n):
+    return [list[start:start+n] for start in xrange(0, len(list), n)]
+
 def print_stim(stim, file):
     if stim:
-        print(stim.fan, stim.status, stim.occupation, stim.eyes, stim.face, stim.test, stim.test_eyes, sep=',', file=file)
+        print(stim.id, stim.fan, stim.status, stim.occupation, stim.eyes, stim.face, stim.test, stim.test_eyes, sep=',', file=file)
     else:
-        print('fan', 'status', 'occupation', 'eyes', 'face', 'test', 'test_eyes', sep=',', file=file)
+        print('stim_id', 'fan', 'status', 'occupation', 'eyes', 'face', 'test', 'test_eyes', sep=',', file=file)
 
-def img_path(stim):
-    return '%s/%s+%s+EyeMask2.jpg' % (IMG_PATH, stim.eyes, stim.face)
+def img_path(stim, test=False):
+    eyes = stim.eyes if test else stim.test_eyes
+    return '%s/%s+%s+EyeMask2.jpg' % (IMG_PATH, eyes, stim.face)
