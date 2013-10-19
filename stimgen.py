@@ -34,17 +34,19 @@ def stimgen(dir='.'):
     stim_master = []
     matching = []
 
+    # Low fan stim
     for status in ['hs', 'ls']:
         eyes = lf_master[status]
         faces = rotate(lf_master[status], 2)
         test = ['old', 'new'] * 4
-        test_eyes = repeat(rotate(lf_master[status][0::2], 1), 2)
+        test_eyes = repeat(lf_master[status][0::2], 2)
         zipped = zip(repeat(occupations[status], 2), eyes, faces, test, test_eyes, xrange(len(stim_master), len(stim_master)+8))
         stim = [Stim('lf', status, *args) for args in zipped]
         stim_master += stim
         matching += zip(stim, stim)
         matching += zip(stim, flatten([rotate(x) for x in group(stim, 2)]))
 
+    # High fan stim
     for status in ['hs', 'ls']:
         eye_donors = hf_master[status][0:8]
         eyes = repeat(eye_donors, 6)
