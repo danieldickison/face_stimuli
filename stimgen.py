@@ -52,7 +52,8 @@ def stimgen(dir='.'):
         eyes = repeat(eye_donors, 6)
         faces = rotate(hf_master[status], 1)
         test = repeat(['old', 'new'], 3) * 8
-        test_eyes = repeat(flatten([[x,y] for x,y in zip(eye_donors, rotate(eye_donors, 4))]), 3)
+        # Note y,x flipped so that the first batch doesn't end up having a eye-face original intact.
+        test_eyes = repeat(flatten([[y,x] for x,y in zip(eye_donors, rotate(eye_donors, 4))]), 3)
         zipped = zip(repeat(occupations[status], 6) * 2, eyes, faces, test, test_eyes, xrange(len(stim_master), len(stim_master)+48))
         stim = [Stim('hf', status, *args) for args in zipped]
         stim_master += stim
