@@ -1,0 +1,112 @@
+lawyer
+secretary
+CEO
+professor
+secretary
+professor
+bus driver
+bus driver
+nanny
+lawyer
+CEO
+bus driver
+nanny
+secretary
+bus driver
+secretary
+doctor
+maid
+maid
+professor
+doctor
+maid
+bus driver
+nanny
+nanny
+CEO
+secretary
+lawyer
+maid
+CEO
+bus driver
+lawyer
+doctor
+professor
+CEO
+nanny
+secretary
+CEO
+nanny
+professor
+bus driver
+bus driver
+nanny
+nanny
+bus driver
+professor
+maid
+professor
+CEO
+nanny
+CEO
+lawyer
+doctor
+doctor
+maid
+doctor
+CEO
+professor
+lawyer
+bus driver
+CEO
+bus driver
+bus driver
+secretary
+professor
+lawyer
+CEO
+CEO
+lawyer
+nanny
+professor
+secretary
+lawyer
+maid
+maid
+doctor
+professor
+doctor
+professor
+CEO
+lawyer
+bus driver
+professor
+secretary
+nanny
+secretary
+doctor
+nanny
+professor
+CEO
+doctor
+doctor
+lawyer
+maid
+doctor
+maid
+secretary
+doctor
+secretary
+secretary
+nanny
+doctor
+nanny
+maid
+lawyer
+maid
+bus driver
+lawyer
+lawyer
+maid
+secretary
+maid
