@@ -53,7 +53,23 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
 		"""
-
+		#026LizShumpert.txt median error due to 0 in TPs
+		"""
+		if status == 'hs':
+			final = [
+					float(matrix[0][0])/4, 
+					float(matrix[1][0])/4,
+					0, #median RTs
+					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
+					]
+		else:
+			final = [
+					float(matrix[0][0])/4, 
+					float(matrix[1][0])/4,
+					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
+					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
+					]
+		"""
 		#013TionnaLake median error due to 0 in TN
 		"""
 		if status == 'hs':
@@ -89,13 +105,15 @@ def confusion_matrix(df_list, fan, status):
 					]
 		"""
 	if fan == 'hf':
+		
 		final = [
 				float(matrix[0][0])/24, 
 				float(matrix[1][0])/24,
 				float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 				float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 				]
-
+		
+		
 		#013TionnaLake median error due to 0 in TN
 		"""
 		if status == 'hs':
@@ -115,6 +133,19 @@ def confusion_matrix(df_list, fan, status):
 		"""
 	return final
 
+def conversion(hf_data):
+	final_test = []
+	for x in hf_data:
+		if x[1] == 'hf' and x[6] == 'old':
+			x[6] = 'new'
+			final_test.append(x[6])
+		elif x[1] == 'hf' and x[6] == 'new':
+			x[6] = 'old'
+			final_test.append(x[6])
+		else:
+			final_test.append(x[6])
+	return final_test
+
 def main():
 	"""
 	November 13, 2013
@@ -123,9 +154,9 @@ def main():
 	"""
 	#NOTE: PATH NEEDS TO BE CHANGED!!!
 	#subject's data
-	subject_data = list(csv.reader(open('/path/to/<filename>.txt','rb'), delimiter='\t'))
+	subject_data = list(csv.reader(open('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/Raw Data/011SarafinaMilgrom.txt','rb'), delimiter='\t'))
 	#master data
-	master_test = DataFrame(pd.read_csv('/path/to/stim/s<###>/master-test.csv'))
+	master_test = DataFrame(pd.read_csv('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/stim/s011/master-test.csv'))
 
 	#only TEST data
 	"""
@@ -155,7 +186,9 @@ def main():
 	#adding master data
 	df_data['fan'] = master_test['fan']
 	df_data['status'] = master_test['status']
-	df_data['master_test'] = master_test['test']
+
+	#conversion: old -> new, new -> old
+	df_data['master_test'] = conversion(master_test.values.tolist())
 
 	#output [HighStatusLFHits, HighStatusLFFAs, HighStatusLFHitsRTs, HighStatusLFCRsRTs]
 	hslf_data = confusion_matrix(df_list=df_data.values.tolist(), status='hs', fan='lf')
@@ -169,8 +202,8 @@ def main():
 	#output: [LowStatusHFHits, LowStatusHFFAs, LowStatusHFHitsRTs, LowStatusHFCRsRTs]
 	lshf_data = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='hf')
 
-	out = csv.writer(open('/path/to/csv_outs/<filename>_csv.txt', 'w'), delimiter=',')
+	out = csv.writer(open('/Users/almaskebekbayev/Desktop/raw_data/git_data/csv_outs/011SarafinaMilgrom_csv.txt', 'w'), delimiter=',')
 	out.writerow(sum([hslf_data, hshf_data, lslf_data, lshf_data], []))
 	
-if __name__ == '__main__':
+if __name__ == '__main__': 
 	main()
