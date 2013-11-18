@@ -28,23 +28,16 @@ def confusion_matrix(df_list, fan, status):
 				else:
 					#FN
 					matrix[0][1] += 1
+
 	if fan == 'lf':
-		final = [
-				float(matrix[0][0])/4, 
-				float(matrix[1][0])/4,
-				float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-				float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-				]
-		
-		#014DaisyKim.txt median error due to 0 in TP
-		"""
 		if status == 'ls':
 			final = [
 					float(matrix[0][0])/4, 
 					float(matrix[1][0])/4,
-					0, #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
+					float(sorted(tp_time)[len(tp_time)//2]), #median RTs for TP times
+					float(sorted(tn_time)[len(tn_time)//2]) #median RTs for TN times
 					]
+			
 		else:
 			final = [
 					float(matrix[0][0])/4, 
@@ -52,77 +45,16 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
-		"""
-		#026LizShumpert.txt median error due to 0 in TPs
-		"""
-		if status == 'hs':
-			final = [
-					float(matrix[0][0])/4, 
-					float(matrix[1][0])/4,
-					0, #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-					]
-		else:
-			final = [
-					float(matrix[0][0])/4, 
-					float(matrix[1][0])/4,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-					]
-		"""
-		#013TionnaLake median error due to 0 in TN
-		"""
-		if status == 'hs':
-			final = [
-					float(matrix[0][0])/4, 
-					float(matrix[1][0])/4,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					0 #median RTs
-					]
-		else:
-			final = [
-					float(matrix[0][0])/4, 
-					float(matrix[1][0])/4,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-					]
-		"""
-		#005EmilyClapp median error due to value 0 in TP
-		"""
-		if status == 'ls':
-			final = [
-					float(matrix[0][0])/4, 
-					float(matrix[1][0])/4,
-					0, #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-					]
-		else:
-			final = [
-					float(matrix[0][0])/4, 
-					float(matrix[1][0])/4,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-					]
-		"""
+
 	if fan == 'hf':
-		
-		final = [
-				float(matrix[0][0])/24, 
-				float(matrix[1][0])/24,
-				float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-				float(sorted(tn_time)[len(tn_time)//2]) #median RTs
-				]
-		
-		
-		#013TionnaLake median error due to 0 in TN
-		"""
 		if status == 'hs':
 			final = [
 					float(matrix[0][0])/24, 
 					float(matrix[1][0])/24,
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					0 #median RTs
+					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
+			
 		else:
 			final = [
 					float(matrix[0][0])/24, 
@@ -130,7 +62,7 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
-		"""
+	
 	return final
 
 def conversion(hf_data):
@@ -147,28 +79,23 @@ def conversion(hf_data):
 	return final_test
 
 def main():
-	"""
-	November 13, 2013
-	Notes: 
-	1. graph master data -> histogram per column
-	"""
 	#NOTE: PATH NEEDS TO BE CHANGED!!!
 	#subject's data
-	subject_data = list(csv.reader(open('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/Raw Data/011SarafinaMilgrom.txt','rb'), delimiter='\t'))
+	subject_data = list(csv.reader(open('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/Raw Data/046EmilyShields.txt','rb'), delimiter='\t'))
 	#master data
-	master_test = DataFrame(pd.read_csv('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/stim/s011/master-test.csv'))
+	master_test = DataFrame(pd.read_csv('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/stim/s046/master-test.csv'))
 
 	#only TEST data
 	"""
 	Based on subject's csv the df_data is:
 	df_data = DataFrame(subject_data[2028:2473:4])
 	or 
-	df_data = DataFrame(subject_data[2029:2474:4])
+	df_data = DataFrame(subject_data[2029:2474:4])]
 	"""
 	df_data = DataFrame(subject_data[2028:2473:4])
 	#df_data = DataFrame(subject_data[2029:2474:4])
 
-	#remaining cols: 5,6,11
+	#remaining cols: 5,6,11  
 	df_data = df_data.drop([x for x in range(13) if x not in (5,6,11)], axis=1)
 	cols = ['occupation', 'test_resp', 'time']
 	df_data.columns = cols
@@ -202,7 +129,7 @@ def main():
 	#output: [LowStatusHFHits, LowStatusHFFAs, LowStatusHFHitsRTs, LowStatusHFCRsRTs]
 	lshf_data = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='hf')
 
-	out = csv.writer(open('/Users/almaskebekbayev/Desktop/raw_data/git_data/csv_outs/011SarafinaMilgrom_csv.txt', 'w'), delimiter=',')
+	out = csv.writer(open('/Users/almaskebekbayev/Desktop/raw_data/git_data/csv_files_final/046EmilyShields.csv', 'w'), delimiter=',')
 	out.writerow(sum([hslf_data, hshf_data, lslf_data, lshf_data], []))
 	
 if __name__ == '__main__': 
