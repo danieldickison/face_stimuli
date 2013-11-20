@@ -31,6 +31,7 @@ def confusion_matrix(df_list, fan, status):
 
 	if fan == 'lf':
 		if status == 'ls':
+			
 			final = [
 					float(matrix[0][0])/4, 
 					float(matrix[1][0])/4,
@@ -45,7 +46,7 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
-
+			
 	if fan == 'hf':
 		if status == 'hs':
 			final = [
@@ -54,7 +55,6 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
-			
 		else:
 			final = [
 					float(matrix[0][0])/24, 
@@ -62,9 +62,10 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
+	print matrix
+	#returns final, total TPs, total FPs
+	return final, matrix[0][0], matrix[1][0]
 	
-	return final
-
 def conversion(hf_data):
 	final_test = []
 	for x in hf_data:
@@ -81,9 +82,9 @@ def conversion(hf_data):
 def main():
 	#NOTE: PATH NEEDS TO BE CHANGED!!!
 	#subject's data
-	subject_data = list(csv.reader(open('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/Raw Data/046EmilyShields.txt','rb'), delimiter='\t'))
+	subject_data = list(csv.reader(open('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/Raw Data/051OliviaBrodovsky.txt','rb'), delimiter='\t'))
 	#master data
-	master_test = DataFrame(pd.read_csv('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/stim/s046/master-test.csv'))
+	master_test = DataFrame(pd.read_csv('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/stim/s051/master-test.csv'))
 
 	#only TEST data
 	"""
@@ -118,19 +119,24 @@ def main():
 	df_data['master_test'] = conversion(master_test.values.tolist())
 
 	#output [HighStatusLFHits, HighStatusLFFAs, HighStatusLFHitsRTs, HighStatusLFCRsRTs]
-	hslf_data = confusion_matrix(df_list=df_data.values.tolist(), status='hs', fan='lf')
-	
+	hslf_data, hslf_tp_total, hslf_fp_total = confusion_matrix(df_list=df_data.values.tolist(), status='hs', fan='lf')
+
 	#output: [HighStatusHFHits, HighStatusHFFAs, HighStatusHFHitsRTs, HighStatusHFCRsRTs]
-	hshf_data = confusion_matrix(df_list=df_data.values.tolist(), status='hs', fan='hf')
+	hshf_data, hshf_tp_total, hshf_fp_total = confusion_matrix(df_list=df_data.values.tolist(), status='hs', fan='hf')
+	#print hshf_tp_total, hshf_fp_total
 
 	#output: [LowStatusLFHits, LowStatusLFFAs, LowStatusLFHitsRTs, LowStatusLFCRsRTs]
-	lslf_data = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='lf')
+	lslf_data, lslf_tp_total, lslf_fp_total = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='lf')
 
 	#output: [LowStatusHFHits, LowStatusHFFAs, LowStatusHFHitsRTs, LowStatusHFCRsRTs]
-	lshf_data = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='hf')
-
-	out = csv.writer(open('/Users/almaskebekbayev/Desktop/raw_data/git_data/csv_files_final/046EmilyShields.csv', 'w'), delimiter=',')
-	out.writerow(sum([hslf_data, hshf_data, lslf_data, lshf_data], []))
+	lshf_data, lshf_tp_total, lshf_fp_total = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='hf')
 	
+
+	"""
+	out = csv.writer(open('/Users/almaskebekbayev/Desktop/raw_data/git_data/csv_files_final/051OliviaBrodovsky.csv', 'w'), delimiter=',')
+	out.writerow(sum([hslf_data,hshf_data,lslf_data,lshf_data, 
+		[hslf_tp_total+hshf_tp_total+lslf_tp_total+lshf_tp_total/float(56)], #total TPs
+		[hslf_fp_total+hshf_fp_total+lslf_fp_total+lshf_fp_total/float(56)]], [])) #total FPs
+	"""
 if __name__ == '__main__': 
 	main()
