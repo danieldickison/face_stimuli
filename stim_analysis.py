@@ -62,7 +62,6 @@ def confusion_matrix(df_list, fan, status):
 					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
 					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
 					]
-	print matrix
 	#returns final, total TPs, total FPs
 	return final, matrix[0][0], matrix[1][0]
 	
@@ -82,9 +81,9 @@ def conversion(hf_data):
 def main():
 	#NOTE: PATH NEEDS TO BE CHANGED!!!
 	#subject's data
-	subject_data = list(csv.reader(open('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/Raw Data/051OliviaBrodovsky.txt','rb'), delimiter='\t'))
+	subject_data = list(csv.reader(open('/path/to/<filename>.txt','rb'), delimiter='\t'))
 	#master data
-	master_test = DataFrame(pd.read_csv('/Users/almaskebekbayev/Dropbox/Exp 1 Face Fan Data/stim/s051/master-test.csv'))
+	master_test = DataFrame(pd.read_csv('/path/to//stim/s<number>/master-test.csv'))
 
 	#only TEST data
 	"""
@@ -131,12 +130,10 @@ def main():
 	#output: [LowStatusHFHits, LowStatusHFFAs, LowStatusHFHitsRTs, LowStatusHFCRsRTs]
 	lshf_data, lshf_tp_total, lshf_fp_total = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='hf')
 	
-
-	"""
-	out = csv.writer(open('/Users/almaskebekbayev/Desktop/raw_data/git_data/csv_files_final/051OliviaBrodovsky.csv', 'w'), delimiter=',')
+	out = csv.writer(open('/path/to/csv-folder/<filename>.csv', 'w'), delimiter=',')
 	out.writerow(sum([hslf_data,hshf_data,lslf_data,lshf_data, 
 		[hslf_tp_total+hshf_tp_total+lslf_tp_total+lshf_tp_total/float(56)], #total TPs
 		[hslf_fp_total+hshf_fp_total+lslf_fp_total+lshf_fp_total/float(56)]], [])) #total FPs
-	"""
+	
 if __name__ == '__main__': 
 	main()
