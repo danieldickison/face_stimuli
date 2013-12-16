@@ -2,6 +2,14 @@ import csv
 import pandas as pd
 from pandas import DataFrame
 
+#returns median number both for even or odd list
+def median(time_list):
+	sorts = sorted(time_list)
+	length = len(sorts)
+	if not length%2:
+		return (sorts[length/2] + sorts[length/2-1]) / float(2)
+	return sorts[length/2]
+
 def confusion_matrix(df_list, fan, status):
 	#matrix: [[TP, FN], [FP, TN]]
 	tp_time = []
@@ -30,38 +38,37 @@ def confusion_matrix(df_list, fan, status):
 					matrix[0][1] += 1
 
 	if fan == 'lf':
-		if status == 'ls':
-			
+		if status == 'ls':		
 			final = [
 					float(matrix[0][0])/4, 
 					float(matrix[1][0])/4,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs for TP times
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs for TN times
+					median(tp_time), #median RTs for TP times
+					median(tn_time) #median RTs for TN times
 					]
-			
 		else:
 			final = [
 					float(matrix[0][0])/4, 
 					float(matrix[1][0])/4,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
+					median(tp_time), #median RTs
+					median(tn_time) #median RTs
 					]
-			
 	if fan == 'hf':
 		if status == 'hs':
 			final = [
 					float(matrix[0][0])/24, 
 					float(matrix[1][0])/24,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
+					median(tp_time), #median RTs
+					median(tn_time) #median RTs
 					]
+			
 		else:
 			final = [
 					float(matrix[0][0])/24, 
 					float(matrix[1][0])/24,
-					float(sorted(tp_time)[len(tp_time)//2]), #median RTs
-					float(sorted(tn_time)[len(tn_time)//2]) #median RTs
+					median(tp_time), #median RTs
+					median(tn_time) #median RTs
 					]
+
 	#returns final, total TPs, total FPs
 	return final, matrix[0][0], matrix[1][0]
 	
@@ -81,9 +88,9 @@ def conversion(hf_data):
 def main():
 	#NOTE: PATH NEEDS TO BE CHANGED!!!
 	#subject's data
-	subject_data = list(csv.reader(open('/path/to/<filename>.txt','rb'), delimiter='\t'))
+	subject_data = list(csv.reader(open('/path/to/<name>.txt','rb'), delimiter='\t'))
 	#master data
-	master_test = DataFrame(pd.read_csv('/path/to//stim/s<number>/master-test.csv'))
+	master_test = DataFrame(pd.read_csv('/path/to/<name>/master-test.csv'))
 
 	#only TEST data
 	"""
@@ -93,7 +100,6 @@ def main():
 	df_data = DataFrame(subject_data[2029:2474:4])]
 	"""
 	df_data = DataFrame(subject_data[2028:2473:4])
-	#df_data = DataFrame(subject_data[2029:2474:4])
 
 	#remaining cols: 5,6,11  
 	df_data = df_data.drop([x for x in range(13) if x not in (5,6,11)], axis=1)
@@ -109,7 +115,7 @@ def main():
 
 	#RTs - 250 due to cue timing
 	df_data['time'] = [int(x)-250 for x in df_data['time'].values.tolist()]
-	
+
 	#adding master data
 	df_data['fan'] = master_test['fan']
 	df_data['status'] = master_test['status']
@@ -129,11 +135,11 @@ def main():
 
 	#output: [LowStatusHFHits, LowStatusHFFAs, LowStatusHFHitsRTs, LowStatusHFCRsRTs]
 	lshf_data, lshf_tp_total, lshf_fp_total = confusion_matrix(df_list=df_data.values.tolist(), status='ls', fan='hf')
-	
-	out = csv.writer(open('/path/to/csv-folder/<filename>.csv', 'w'), delimiter=',')
+
+	out = csv.writer(open('path/to/<name>.csv', 'w'), delimiter=',')
 	out.writerow(sum([hslf_data,hshf_data,lslf_data,lshf_data, 
-		[hslf_tp_total+hshf_tp_total+lslf_tp_total+lshf_tp_total/float(56)], #total TPs
-		[hslf_fp_total+hshf_fp_total+lslf_fp_total+lshf_fp_total/float(56)]], [])) #total FPs
+		[(hslf_tp_total+hshf_tp_total+lslf_tp_total+lshf_tp_total)/float(56)], #total TPs
+		[(hslf_fp_total+hshf_fp_total+lslf_fp_total+lshf_fp_total)/float(56)]], [])) #total FPs
 	
 if __name__ == '__main__': 
 	main()
