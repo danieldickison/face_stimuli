@@ -1,3 +1,8 @@
-Face generation of internal features (eye mask). 
+Data Analysis Script
 
-Note: the "new" model is not working. 
+Analyzes SuperLab output based on the given requirements. 
+
+Requirements:
+-pandas (docs: pandas.pydata.org/pandas-docs/stable/install.html)
+
+
