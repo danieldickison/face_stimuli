@@ -127,4 +127,4 @@ def print_stim(stim, file):
 
 def img_path(stim, test=False):
     eyes = stim.eyes if test else stim.test_eyes
-    return '%s\\%s+%s+EyeMask2.png' % (IMG_PATH, eyes, stim.face)
+    return '%s\\%s+%s+EyeMask2.jpg' % (IMG_PATH, eyes, stim.face)
