@@ -93,7 +93,7 @@ def stimgen(dir='.'):
     matching_trigger_file = open(dir + '/matching-trigger.txt', 'w')
     print('match', 'stim_id_left', 'stim_id_right', 'age_left', 'age_right', 'trigger', sep=',', file=matching_file)
     for pair in matching:
-        trigger = stim_trigger(pair[0], pair[0] == pair[1])
+        trigger = stim_trigger(pair[0], pair[0] != pair[1])
         print(pair[0] == pair[1], pair[0].id, pair[1].id, pair[0].age, pair[1].age, trigger, sep=',', file=matching_file)
         print(img_path(pair[0]), file=left_img_file)
         print(img_path(pair[1]), file=right_img_file)
@@ -112,7 +112,7 @@ def stimgen(dir='.'):
     for stim in test:
         print_stim(stim, test_file)
         print(img_path(stim, test=True), file=test_img_file)
-        print(stim_trigger(stim, stim.test == 'old'), file=test_trigger_file)
+        print(stim_trigger(stim, stim.test == 'new'), file=test_trigger_file)
     test_file.close()
     test_img_file.close()
     test_trigger_file.close()
@@ -132,7 +132,7 @@ def group(list, n):
 def print_stim(stim, file):
     if stim:
         study_trigger = stim_trigger(stim, False)
-        test_trigger = stim_trigger(stim, stim.test == 'old')
+        test_trigger = stim_trigger(stim, stim.test == 'new')
         print(stim.id, stim.fan, stim.age, stim.face, stim.eyes, stim.test_eyes, stim.test, study_trigger, test_trigger, sep=',', file=file)
     else:
         print('stim_id', 'fan', 'age', 'face', 'eyes', 'test_eyes', 'test', 'study_trigger', 'test_trigger', sep=',', file=file)
