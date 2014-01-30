@@ -76,36 +76,46 @@ def stimgen(dir='.'):
     shuffle(study)
     study_file = open(dir + '/master-study.csv', 'w')
     study_img_file = open(dir + '/study-img.txt', 'w')
+    study_trigger_file = open(dir + '/study-trigger.txt', 'w')
     print_stim(None, study_file)
     for stim in study:
         print_stim(stim, study_file)
         print(img_path(stim), file=study_img_file)
+        print(stim_trigger(stim, False), file=study_trigger_file)
     study_file.close()
     study_img_file.close()
+    study_trigger_file.close()
 
     shuffle(matching)
     matching_file = open(dir + '/master-matching.csv', 'w')
     left_img_file = open(dir + '/matching-img-left.txt', 'w')
     right_img_file = open(dir + '/matching-img-right.txt', 'w')
-    print('match', 'stim_id_left', 'stim_id_right', 'age_left', 'age_right', sep=',', file=matching_file)
+    matching_trigger_file = open(dir + '/matching-trigger.txt', 'w')
+    print('match', 'stim_id_left', 'stim_id_right', 'age_left', 'age_right', 'trigger', sep=',', file=matching_file)
     for pair in matching:
-        print(pair[0] == pair[1], pair[0].id, pair[1].id, pair[0].age, pair[1].age, sep=',', file=matching_file)
+        trigger = stim_trigger(pair[0], pair[0] == pair[1])
+        print(pair[0] == pair[1], pair[0].id, pair[1].id, pair[0].age, pair[1].age, trigger, sep=',', file=matching_file)
         print(img_path(pair[0]), file=left_img_file)
         print(img_path(pair[1]), file=right_img_file)
+        print(trigger, file=matching_trigger_file)
     matching_file.close()
     left_img_file.close()
     right_img_file.close()
+    matching_trigger_file.close()
 
     test = copy(stim_master)
     shuffle(test)
     test_file = open(dir + '/master-test.csv', 'w')
     test_img_file = open(dir + '/test-img.txt', 'w')
+    test_trigger_file = open(dir + '/test-trigger.txt', 'w')
     print_stim(None, test_file)
     for stim in test:
         print_stim(stim, test_file)
         print(img_path(stim, test=True), file=test_img_file)
+        print(stim_trigger(stim, stim.test == 'old'), file=test_trigger_file)
     test_file.close()
     test_img_file.close()
+    test_trigger_file.close()
 
 def rotate(list, n=1):
     return list[n:] + list[0:n]
@@ -121,9 +131,18 @@ def group(list, n):
 
 def print_stim(stim, file):
     if stim:
-        print(stim.id, stim.fan, stim.age, stim.face, stim.eyes, stim.test_eyes, stim.test, sep=',', file=file)
+        study_trigger = stim_trigger(stim, False)
+        test_trigger = stim_trigger(stim, stim.test == 'old')
+        print(stim.id, stim.fan, stim.age, stim.face, stim.eyes, stim.test_eyes, stim.test, study_trigger, test_trigger, sep=',', file=file)
     else:
-        print('stim_id', 'fan', 'age', 'face', 'eyes', 'test_eyes', 'test', sep=',', file=file)
+        print('stim_id', 'fan', 'age', 'face', 'eyes', 'test_eyes', 'test', 'study_trigger', 'test_trigger', sep=',', file=file)
+
+def stim_trigger(stim, test_condition):
+    trigger = 1 # always need at least one bit set to mark the event.
+    trigger |= 2 if stim.fan == 'hf' else 0
+    trigger |= 4 if stim.age == 'older' else 0
+    trigger |= 8 if test_condition else 0
+    return trigger
 
 def img_path(stim, test=False):
     eyes = stim.eyes if test else stim.test_eyes
