@@ -145,5 +145,5 @@ def stim_trigger(stim, test_condition):
     return trigger
 
 def img_path(stim, test=False):
-    eyes = stim.eyes if test else stim.test_eyes
+    eyes = stim.test_eyes if test else stim.eyes
     return '%s\\%s+%s+EyeMask2.jpg' % (IMG_PATH, eyes, stim.face)
