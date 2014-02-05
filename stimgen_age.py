@@ -1,9 +1,11 @@
 from __future__ import print_function
-from random import shuffle
+from random import shuffle, seed
 from copy import copy, deepcopy
 from collections import namedtuple
 import sys
 import os
+
+seed(42)
 
 IMG_PATH = 'C:\\Users\\Joyce\\Dropbox\\Peynircioglu Lab\\Faces\\DISSERTATION & MATERIALS\\Experiments\\experiment\\face-composites'
 
@@ -64,7 +66,14 @@ def stimgen(dir='.'):
         stim = [Stim('hf', age, *args) for args in zipped]
         stim_master += stim
         matching += zip(stim, stim)
-        matching += zip(stim, flatten([rotate(x) for x in group(stim, 6)]))
+        # Mismatches must have different eyes; eyes Ax6 paired with Bx2, Cx2, Dx2, etc.
+        mis = group(stim, 2)
+        mismatches = []
+        mismatches += mis[3] + mis[6] + mis[9]
+        mismatches += mis[7] + mis[10] + mis[0]
+        mismatches += mis[11] + mis[1] + mis[4]
+        mismatches += mis[2] + mis[5] + mis[8]
+        matching += zip(stim, mismatches)
 
     master_file = open(dir + '/master.csv', 'w')
     print_stim(None, master_file)
@@ -91,10 +100,10 @@ def stimgen(dir='.'):
     left_img_file = open(dir + '/matching-img-left.txt', 'w')
     right_img_file = open(dir + '/matching-img-right.txt', 'w')
     matching_trigger_file = open(dir + '/matching-trigger.txt', 'w')
-    print('match', 'stim_id_left', 'stim_id_right', 'age_left', 'age_right', 'trigger', sep=',', file=matching_file)
+    print('match', 'img_right', 'stim_id_left', 'stim_id_right', 'age_left', 'age_right', 'eye_l', 'face_l', 'eye_r', 'face_r', 'trigger', sep=',', file=matching_file)
     for pair in matching:
         trigger = stim_trigger(pair[0], pair[0] != pair[1])
-        print(pair[0] == pair[1], pair[0].id, pair[1].id, pair[0].age, pair[1].age, trigger, sep=',', file=matching_file)
+        print(pair[0] == pair[1], pair[1].eyes[0:-4], pair[0].id, pair[1].id, pair[0].age, pair[1].age, pair[0].eyes, pair[0].face, pair[1].eyes, pair[1].face, trigger, sep=',', file=matching_file)
         print(img_path(pair[0]), file=left_img_file)
         print(img_path(pair[1]), file=right_img_file)
         print(trigger, file=matching_trigger_file)
